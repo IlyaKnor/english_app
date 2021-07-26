@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:postgresql://localhost:5432/english_app
+    username: postgres
+    password: 123456
+    driverClassName: org.postgresql.Driver
+
+app:
+    jwtSecret:  TaZaSho?!
+    jwtExpirationMs: 86400000
