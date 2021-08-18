@@ -10,11 +10,15 @@ public class WordCreationDtoConverter {
 
     private final ModelMapper modelMapper;
 
-    public WordCreationDtoConverter(){
+    public WordCreationDtoConverter() {
         this.modelMapper = new ModelMapper();
     }
 
-    public WordCreationDto convertToDto (Word entity){
+    public Word convertToEntity(WordCreationDto dto) {
+        return modelMapper.map(dto, Word.class);
+    }
+
+    public WordCreationDto convertToDto(Word entity) {
         return modelMapper.map(entity, WordCreationDto.class);
     }
 }
