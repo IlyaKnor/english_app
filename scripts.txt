@@ -1,0 +1,48 @@
+CREATE TABLE public."users"
+(
+	id SERIAL PRIMARY KEY,
+	login varchar(30),
+	password varchar(255),
+	email varchar(30),
+	enabled boolean
+);
+
+CREATE TABLE language
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	language varchar(64)
+);
+
+CREATE TABLE word
+(
+	id SERIAL PRIMARY KEY,
+	word varchar(30) UNIQUE,
+	lang_id int REFERENCES language (id)
+);
+
+CREATE TABLE card
+(
+	id SERIAL PRIMARY KEY,
+	word_id int REFERENCES word (id),
+	translation_id int REFERENCES word (id)
+);
+
+CREATE TABLE roles
+(
+	id SERIAL PRIMARY KEY,
+	name varchar(30)
+);
+
+CREATE TABLE users_roles
+(
+	id SERIAL PRIMARY KEY,
+	users_id int REFERENCES public."users" (id),
+	role_id int REFERENCES roles (id)
+);
+
+CREATE TABLE user_card
+(
+	id SERIAL PRIMARY KEY,
+	user_id int REFERENCES public."users" (id),
+	card_id int REFERENCES card (id)
+)
