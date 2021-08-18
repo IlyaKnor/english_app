@@ -21,7 +21,6 @@ public class WordController {
         this.wordService = wordService;
     }
 
-
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody WordCreationDto word) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -32,6 +31,7 @@ public class WordController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Word> read(@PathVariable(name = "id") long id) {
         Word word = wordService.read(id);
+
         return word != null
                 ? new ResponseEntity<>(word, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
