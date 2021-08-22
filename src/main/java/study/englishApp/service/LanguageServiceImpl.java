@@ -33,7 +33,8 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public Language read(Long id) {
-        return languageRepository.findById(id).orElseThrow(() -> new RuntimeException("Язык не найден по id: " + id));
+        return languageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Язык не найден по id: " + id));
     }
 
     @Override

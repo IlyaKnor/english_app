@@ -2,6 +2,7 @@ package study.englishApp.service;
 
 import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
+import study.englishApp.models.dto.WordDto;
 import study.englishApp.models.dto.WordUpdatingDto;
 import study.englishApp.models.dto.WordWithoutLanguageDto;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface WordService {
 
-    Word create(WordCreationDto word);
+    WordDto create(WordCreationDto word);
 
     Word read(Long id);
 

@@ -1,34 +1,36 @@
 package study.englishApp.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.englishApp.models.Language;
 import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
+import study.englishApp.models.dto.WordDto;
 import study.englishApp.models.dto.WordUpdatingDto;
 import study.englishApp.models.dto.WordWithoutLanguageDto;
+import study.englishApp.models.mapper.WordMapper;
+import study.englishApp.models.mapper.context.WordMappingContext;
 import study.englishApp.repository.WordRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class WordServiceImpl implements WordService{
 
+    private final WordMappingContext wordMappingContext;
     private final WordRepository wordRepository;
     private final LanguageService languageService;
 
-    public WordServiceImpl(WordRepository wordRepository, LanguageService languageService) {
-        this.wordRepository = wordRepository;
-        this.languageService = languageService;
-    }
+
 
 
     @Override
-    public Word create(WordCreationDto word) {
+    public WordDto create(WordCreationDto word) {
         if (!wordRepository.existsByWordAndLang_Id(word.getWord(), word.getLangId())) {
-            Language language = languageService.read(word.getLangId());
-            Word created = new Word(word.getWord(), language);
-            return wordRepository.save(created);
+            Word created = wordRepository.save(WordMapper.INSTANCE.toEntity(word, wordMappingContext));
+            return WordMapper.INSTANCE.toDto(created);
         }
         throw new RuntimeException("Слово на таком языке уже существует.");
     }
