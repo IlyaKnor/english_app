@@ -3,8 +3,8 @@ package study.englishApp.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
+import study.englishApp.models.dto.WordDto;
 import study.englishApp.models.dto.WordUpdatingDto;
 import study.englishApp.models.dto.WordWithoutLanguageDto;
 import study.englishApp.service.WordService;
@@ -29,8 +29,8 @@ public class WordController {
 
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Word> read(@PathVariable(name = "id") long id) {
-        Word word = wordService.read(id);
+    public ResponseEntity<WordDto> read(@PathVariable(name = "id") long id) {
+        WordDto word = wordService.read(id);
 
         return word != null
                 ? new ResponseEntity<>(word, HttpStatus.OK)

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import study.englishApp.models.Card;
 import study.englishApp.models.Word;
 import study.englishApp.models.dto.CardCreationDto;
+import study.englishApp.models.dto.WordDto;
+import study.englishApp.models.mapper.WordMapper;
 import study.englishApp.repository.CardRepository;
 
 @Service
@@ -13,6 +15,7 @@ public class CardServiceImpl implements CardService {
     private final CardRepository cardRepository;
     private final WordService wordService;
 
+
     public CardServiceImpl(CardRepository cardRepository, WordService wordService) {
         this.cardRepository = cardRepository;
         this.wordService = wordService;
@@ -21,10 +24,10 @@ public class CardServiceImpl implements CardService {
     @Override
     public Card create(CardCreationDto card) {
         Card create = new Card();
-        Word word = wordService.read(card.getWordId());
-        Word translation = wordService.read(card.getTranslationId());
-        create.setWord(word);
-        create.setTranslation(translation);
+        WordDto word = wordService.read(card.getWordId());
+        WordDto translation = wordService.read(card.getTranslationId());
+        create.setWord(WordMapper.INSTANCE.toEntity(word));
+        create.setTranslation(WordMapper.INSTANCE.toEntity(translation));
 
         return cardRepository.save(create);
     }
