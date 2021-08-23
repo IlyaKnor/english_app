@@ -6,7 +6,6 @@ import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
-import study.englishApp.repository.WordRepository;
 import study.englishApp.service.LanguageService;
 
 @Component

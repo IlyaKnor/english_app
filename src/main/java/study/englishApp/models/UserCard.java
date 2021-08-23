@@ -26,6 +26,6 @@ public class UserCard {
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     private Card card;
 
-    @Column(name = "name")
+    @Column(name = "username")
     private String name;
 }

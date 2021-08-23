@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UserCreateDto {
     @NotBlank
-    private String login;
+    private String username;
     @NotBlank
     private String password;
     @NotBlank

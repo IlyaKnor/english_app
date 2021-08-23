@@ -22,9 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(UserCreateDto userCreateDto) {
-        if (!userRepository.existsByLogin(userCreateDto.getLogin())){
+        if (!userRepository.existsByUsername(userCreateDto.getUsername())){
             User created = new User();
-            created.setLogin(userCreateDto.getLogin());
+            created.setUsername(userCreateDto.getUsername());
             created.setEmail(userCreateDto.getEmail());
             created.setPassword(userCreateDto.getPassword());
             created.setEnabled(true);
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         User found = read(userUpdatingDto.getId());
         found.setPassword(userUpdatingDto.getPassword());
         found.setEmail(userUpdatingDto.getEmail());
-        found.setLogin(userUpdatingDto.getName());
+        found.setUsername(userUpdatingDto.getUsername());
        return userRepository.save(found);
     }
 

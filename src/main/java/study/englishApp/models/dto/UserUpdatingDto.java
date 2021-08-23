@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 public class UserUpdatingDto {
     @NotBlank
     Long id;
-    String name;
+    String username;
     String password;
     String email;
 }

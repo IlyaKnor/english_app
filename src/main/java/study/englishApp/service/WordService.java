@@ -1,6 +1,5 @@
 package study.englishApp.service;
 
-import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
 import study.englishApp.models.dto.WordDto;
 import study.englishApp.models.dto.WordUpdatingDto;
@@ -12,9 +11,9 @@ public interface WordService {
 
     WordDto create(WordCreationDto word);
 
-    Word read(Long id);
+    WordDto read(Long id);
 
-    Word update(WordUpdatingDto word);
+    WordDto update(WordUpdatingDto word);
 
     void delete(Long id);
 

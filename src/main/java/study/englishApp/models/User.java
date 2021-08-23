@@ -18,8 +18,8 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -47,8 +47,8 @@ public class User {
         this.roles.add(role);
     }
 
-    public User(String login, String email, String password) {
-        this.login = login;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -58,11 +58,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return login.equals(user.login);
+        return username.equals(user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login);
+        return Objects.hash(username);
     }
 }

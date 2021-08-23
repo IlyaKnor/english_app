@@ -2,7 +2,6 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.englishApp.models.Language;
 import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
 import study.englishApp.models.dto.WordDto;
@@ -12,18 +11,15 @@ import study.englishApp.models.mapper.WordMapper;
 import study.englishApp.models.mapper.context.WordMappingContext;
 import study.englishApp.repository.WordRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class WordServiceImpl implements WordService{
+public class WordServiceImpl implements WordService {
 
     private final WordMappingContext wordMappingContext;
     private final WordRepository wordRepository;
-    private final LanguageService languageService;
-
-
 
 
     @Override
@@ -36,19 +32,17 @@ public class WordServiceImpl implements WordService{
     }
 
     @Override
-    public Word read(Long id) {
-        return wordRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Слово не найдено по id: "+ id));
+    public WordDto read(Long id) {
+        return WordMapper.INSTANCE.toDto(wordRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Слово не найдено по id: " + id)));
     }
 
 
     @Override
-    public Word update(WordUpdatingDto word) {
-        Word found = read(word.getId());
-        Language language = languageService.read(word.getLangId());
-        found.setLang(language);
-        found.setWord(word.getWord());
-        return wordRepository.save(found);
+    public WordDto update(WordUpdatingDto word) {
+
+        Word found = wordRepository.save(WordMapper.INSTANCE.toEntity(read(word.getId())));
+        return WordMapper.INSTANCE.toDto(found);
     }
 
     @Override
@@ -61,12 +55,9 @@ public class WordServiceImpl implements WordService{
     @Override
     public List<WordWithoutLanguageDto> findAllByLang(String language) {
 
-
-        List<WordWithoutLanguageDto> wordsDto = new ArrayList<>();
-        for (Word word : wordRepository.findWordsByLanguage(language)) {
-            WordWithoutLanguageDto wordDto = new WordWithoutLanguageDto(word.getId(), word.getWord());
-            wordsDto.add(wordDto);
-        }
-        return wordsDto;
+        return wordRepository.findWordsByLanguage(language)
+                .stream()
+                .map(WordMapper.INSTANCE::toWithoutLanguageDto)
+                .collect(Collectors.toList());
     }
 }
