@@ -1,13 +1,13 @@
 package study.englishApp.service;
 
-import study.englishApp.models.Card;
 import study.englishApp.models.dto.CardCreationDto;
+import study.englishApp.models.dto.CardDto;
 
 public interface CardService {
 
-    Card create(CardCreationDto card);
+    CardDto create(CardCreationDto card);
 
-    Card read(Long id);
+    CardDto read(Long id);
 
     void delete(Long id);
 }

@@ -5,6 +5,7 @@ import study.englishApp.models.Card;
 import study.englishApp.models.UserCard;
 import study.englishApp.models.dto.UserCardCreatedDto;
 import study.englishApp.models.dto.UserCardUpdatingDto;
+import study.englishApp.models.mapper.CardMapper;
 import study.englishApp.repository.UserCardRepository;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class UserCardServiceImpl implements UserCardService {
     @Override
     public void addCard(Long id, Long cardsId) {
         UserCard found = read(id);
-        Card card = cardService.read(cardsId);
+        Card card = CardMapper.INSTANCE.toEntity(cardService.read(cardsId));
         found.setCard(card);
         }
 

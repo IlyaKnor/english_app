@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.englishApp.models.Card;
 import study.englishApp.models.dto.CardCreationDto;
+import study.englishApp.models.dto.CardDto;
 import study.englishApp.service.CardService;
 
 
@@ -25,8 +26,8 @@ public class CardController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Card> read(@PathVariable(name = "id") long id) {
-        final Card card = cardService.read(id);
+    public ResponseEntity<CardDto> read(@PathVariable(name = "id") long id) {
+        final CardDto card = cardService.read(id);
 
         return card != null
                 ? new ResponseEntity<>(card, HttpStatus.OK)

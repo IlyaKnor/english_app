@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.englishApp.models.Language;
+import study.englishApp.models.dto.LanguageDto;
 import study.englishApp.service.LanguageService;
 
 import java.util.List;
@@ -18,14 +19,14 @@ public class LanguageController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Language language) {
+    public ResponseEntity<?> create(@RequestBody LanguageDto language) {
         languageService.create(language);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Language>> readAll(){
-        final List<Language> languages = languageService.findAll();
+    public ResponseEntity<List<LanguageDto>> readAll(){
+        final List<LanguageDto> languages = languageService.findAll();
 
         return languages != null && !languages.isEmpty()
                 ? new ResponseEntity<>(languages, HttpStatus.OK)
@@ -33,8 +34,8 @@ public class LanguageController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Language> read(@PathVariable(name = "id") Long id) {
-    final Language language = languageService.read(id);
+    public ResponseEntity<LanguageDto> read(@PathVariable(name = "id") Long id) {
+    final LanguageDto language = languageService.read(id);
 
     return language != null
             ? new ResponseEntity<>(language, HttpStatus.OK)
@@ -42,7 +43,7 @@ public class LanguageController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody Language language) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody LanguageDto language) {
        languageService.update(language);
 
         return new ResponseEntity<>(HttpStatus.OK);

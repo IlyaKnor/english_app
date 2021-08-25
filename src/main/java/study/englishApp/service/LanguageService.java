@@ -2,18 +2,20 @@ package study.englishApp.service;
 
 
 import study.englishApp.models.Language;
+import study.englishApp.models.dto.LanguageDto;
+
 import java.util.List;
 
 
 public interface LanguageService {
 
-    void create(Language language);
+    LanguageDto create(LanguageDto dto);
 
-    List<Language> findAll();
+    List<LanguageDto> findAll();
 
-    Language read(Long id);
+    LanguageDto read(Long id);
 
-    Language update (Language language);
+    LanguageDto update (LanguageDto dto);
 
     void delete (Long id);
 }

@@ -6,6 +6,7 @@ import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
+import study.englishApp.models.mapper.LanguageMapper;
 import study.englishApp.service.LanguageService;
 
 @Component
@@ -16,7 +17,7 @@ public class WordMappingContext {
 
     @AfterMapping
     public void map(@MappingTarget Word target, WordCreationDto source) {
-        target.setLang(languageService.read(source.getLangId()));
+        target.setLang(LanguageMapper.INSTANCE.toEntity(languageService.read(source.getLangId())));
     }
 
 }

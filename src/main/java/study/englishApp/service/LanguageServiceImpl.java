@@ -2,9 +2,12 @@ package study.englishApp.service;
 
 import org.springframework.stereotype.Service;
 import study.englishApp.models.Language;
+import study.englishApp.models.dto.LanguageDto;
+import study.englishApp.models.mapper.LanguageMapper;
 import study.englishApp.repository.LanguageRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LanguageServiceImpl implements LanguageService {
@@ -17,33 +20,38 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public void create(Language language) {
-        language.setLanguage(language.getLanguage().toUpperCase());
-        if (!languageRepository.existsByLanguage(language.getLanguage()) && language.getLanguage().length() < 3) {
-            languageRepository.save(language);
+    public LanguageDto create(LanguageDto dto) {
+        dto.setLanguage(dto.getLanguage().toUpperCase());
+        if (!languageRepository.existsByLanguage(dto.getLanguage()) && dto.getLanguage().length() < 3) {
+            languageRepository.save(LanguageMapper.INSTANCE.toEntity(dto));
+            return dto;
         } else {
             throw new RuntimeException("Не верно введен код языка.");
         }
     }
 
     @Override
-    public List<Language> findAll() {
-        return languageRepository.findAll();
+    public List<LanguageDto> findAll() {
+        return languageRepository.findAll()
+                .stream()
+                .map(LanguageMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Language read(Long id) {
-        return languageRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Язык не найден по id: " + id));
+    public LanguageDto read(Long id) {
+        return LanguageMapper.INSTANCE.toDto(languageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Язык не найден по id: " + id)));
     }
 
     @Override
-    public Language update(Language language) {
-        if (languageRepository.existsById(language.getId())){
-            language.setId(language.getId());
-            return languageRepository.save(language);
+    public LanguageDto update(LanguageDto dto) {
+        if (languageRepository.existsById(dto.getId())){
+            dto.setId(dto.getId());
+            languageRepository.save(LanguageMapper.INSTANCE.toEntity(dto));
+            return dto;
         }else {
-            throw new RuntimeException(String.format("Языка %s не существует", language.getLanguage()));
+            throw new RuntimeException(String.format("Языка %s не существует", dto.getLanguage()));
         }
     }
 

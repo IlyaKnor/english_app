@@ -1,15 +1,13 @@
-package study.englishApp.service;
-
-import study.englishApp.models.User;
-import study.englishApp.models.dto.UserCreateDto;
-import study.englishApp.models.dto.UserUpdatingDto;
-
-public interface UserService {
-    User create(UserCreateDto userCreateDto);
-
-    User read(Long id);
-
-    User update(UserUpdatingDto userUpdatingDto);
-
-    void delete(Long id);
-}
+//package study.englishApp.service;
+//
+//import study.englishApp.models.User;
+//
+//public interface UserService {
+//    User create(UserCreateDto userCreateDto);
+//
+//    User read(Long id);
+//
+//    User update(UserUpdatingDto userUpdatingDto);
+//
+//    void delete(Long id);
+//}
