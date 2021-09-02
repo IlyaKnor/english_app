@@ -14,4 +14,10 @@ public class RestExceptionHandler {
         Response response = new Response(exceptions.getMessage());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Response> handleBadRequest(BadRequestException exception) {
+        Response response = new Response(exception.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

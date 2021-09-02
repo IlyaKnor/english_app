@@ -1,6 +1,7 @@
 package study.englishApp.service;
 
 import org.springframework.stereotype.Service;
+import study.englishApp.Exceptions.BadRequestException;
 import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Language;
 import study.englishApp.models.dto.LanguageDto;
@@ -27,13 +28,13 @@ public class LanguageServiceImpl implements LanguageService {
             languageRepository.save(LanguageMapper.INSTANCE.toEntity(dto));
             return dto;
         } else {
-            throw new RuntimeException("Не верно введен код языка.");
+            throw new BadRequestException("Не верно введен код языка.");
         }
     }
 
     @Override
     public List<LanguageDto> findAll() {
-        return languageRepository.findAll()
+         return languageRepository.findAll()
                 .stream()
                 .map(LanguageMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
@@ -52,7 +53,7 @@ public class LanguageServiceImpl implements LanguageService {
             languageRepository.save(LanguageMapper.INSTANCE.toEntity(dto));
             return dto;
         }else {
-            throw new RuntimeException(String.format("Языка %s не существует", dto.getLanguage()));
+            throw new BadRequestException(String.format("Языка %s не существует", dto.getLanguage()));
         }
     }
 
