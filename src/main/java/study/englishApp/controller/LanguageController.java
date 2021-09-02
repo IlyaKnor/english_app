@@ -3,6 +3,7 @@ package study.englishApp.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Language;
 import study.englishApp.models.dto.LanguageDto;
 import study.englishApp.service.LanguageService;
@@ -27,14 +28,13 @@ public class LanguageController {
     @GetMapping
     public ResponseEntity<List<LanguageDto>> readAll(){
         final List<LanguageDto> languages = languageService.findAll();
-
         return languages != null && !languages.isEmpty()
                 ? new ResponseEntity<>(languages, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<LanguageDto> read(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<LanguageDto> read(@PathVariable(name = "id") Long id){
     final LanguageDto language = languageService.read(id);
 
     return language != null

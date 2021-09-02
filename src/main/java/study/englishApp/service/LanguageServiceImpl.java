@@ -1,6 +1,7 @@
 package study.englishApp.service;
 
 import org.springframework.stereotype.Service;
+import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Language;
 import study.englishApp.models.dto.LanguageDto;
 import study.englishApp.models.mapper.LanguageMapper;
@@ -41,7 +42,7 @@ public class LanguageServiceImpl implements LanguageService {
     @Override
     public LanguageDto read(Long id) {
         return LanguageMapper.INSTANCE.toDto(languageRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Язык не найден по id: " + id)));
+                .orElseThrow(() -> new NotFoundExceptions("Язык не найден по id: " + id)));
     }
 
     @Override
