@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.englishApp.models.UserCard;
 import study.englishApp.models.dto.UserCardCreatedDto;
+import study.englishApp.models.dto.UserCardDto;
 import study.englishApp.models.dto.UserCardUpdatingDto;
 import study.englishApp.service.UserCardService;
 
@@ -29,16 +30,16 @@ public class UserCardController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<UserCard>> findAll() {
-        List<UserCard> userCards = userCardService.findAll();
+    public ResponseEntity<List<UserCardDto>> findAll() {
+        List<UserCardDto> userCards = userCardService.findAll();
         return userCards != null && !userCards.isEmpty()
                 ? new ResponseEntity<>(userCards, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserCard> read(@PathVariable(name = "id") long id) {
-        UserCard userCard = userCardService.read(id);
+    public ResponseEntity<UserCardDto> read(@PathVariable(name = "id") long id) {
+        UserCardDto userCard = userCardService.read(id);
         return userCard != null
                 ? new ResponseEntity<>(userCard, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

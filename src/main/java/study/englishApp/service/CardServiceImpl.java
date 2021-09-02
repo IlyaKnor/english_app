@@ -2,6 +2,8 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import study.englishApp.Exceptions.BadRequestException;
+import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Card;
 import study.englishApp.models.dto.CardCreationDto;
 import study.englishApp.models.dto.CardDto;
@@ -20,15 +22,18 @@ public class CardServiceImpl implements CardService {
     @Override
     public CardDto create(CardCreationDto card) {
 
-        Card entity = cardRepository.save(CardMapper.INSTANCE.toEntity(card, context));
+        if (card.getTranslationId().equals(card.getWordId())){
+            throw new BadRequestException("Выберите корректный перевод слова.");
+        }
 
+        Card entity = cardRepository.save(CardMapper.INSTANCE.toEntity(card, context));
         return CardMapper.INSTANCE.toDto(entity);
     }
 
     @Override
     public CardDto read(Long id) {
         return CardMapper.INSTANCE.toDto(cardRepository.findById(id).
-                orElseThrow(() -> new RuntimeException(String.format("Карточка по id: %d не найдена", id))));
+                orElseThrow(() -> new NotFoundExceptions(String.format("Карточка по id: %d не найдена", id))));
     }
 
 

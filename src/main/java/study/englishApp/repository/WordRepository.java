@@ -13,5 +13,7 @@ public interface WordRepository extends JpaRepository <Word, Long> {
 
     boolean existsByWordAndLang_Id(String word, long id);
 
+    boolean existsWordById(long id);
+
     Word findWordByWordAndLang(String word, long id);
 }

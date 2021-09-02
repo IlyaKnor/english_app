@@ -1,20 +1,20 @@
 package study.englishApp.service;
 
-import study.englishApp.models.UserCard;
 import study.englishApp.models.dto.UserCardCreatedDto;
+import study.englishApp.models.dto.UserCardDto;
 import study.englishApp.models.dto.UserCardUpdatingDto;
 
 import java.util.List;
 
 public interface UserCardService {
 
-    UserCard create(UserCardCreatedDto userCard);
+    UserCardDto create(UserCardCreatedDto userCard);
 
-    List<UserCard> findAll();
+    List<UserCardDto> findAll();
 
-    UserCard read(Long id);
+    UserCardDto read(Long id);
 
-    UserCard update(UserCardUpdatingDto userCard);
+    UserCardDto update(UserCardUpdatingDto userCard);
 
     void delete(Long id);
 

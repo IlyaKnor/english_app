@@ -2,6 +2,8 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import study.englishApp.Exceptions.BadRequestException;
+import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
 import study.englishApp.models.dto.WordDto;
@@ -28,21 +30,28 @@ public class WordServiceImpl implements WordService {
             Word created = wordRepository.save(WordMapper.INSTANCE.toEntity(word, wordMappingContext));
             return WordMapper.INSTANCE.toDto(created);
         }
-        throw new RuntimeException("Слово на таком языке уже существует.");
+        else {
+            throw new BadRequestException("Слово на таком языке уже существует.");
+        }
     }
 
     @Override
     public WordDto read(Long id) {
         return WordMapper.INSTANCE.toDto(wordRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Слово не найдено по id: " + id)));
+                .orElseThrow(() -> new NotFoundExceptions("Слово не найдено по id: " + id)));
     }
 
 
     @Override
     public WordDto update(WordUpdatingDto word) {
 
-        Word found = wordRepository.save(WordMapper.INSTANCE.toEntity(read(word.getId())));
-        return WordMapper.INSTANCE.toDto(found);
+        if (wordRepository.existsWordById(word.getId())){
+            Word found = wordRepository.save(WordMapper.INSTANCE.toEntity(read(word.getId())));
+            return WordMapper.INSTANCE.toDto(found);
+        }
+        else {
+            throw new BadRequestException("Слово не обновлено, проверьте вводимые значения");
+        }
     }
 
     @Override

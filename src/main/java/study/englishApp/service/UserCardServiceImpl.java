@@ -1,52 +1,57 @@
 package study.englishApp.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Card;
 import study.englishApp.models.UserCard;
 import study.englishApp.models.dto.UserCardCreatedDto;
+import study.englishApp.models.dto.UserCardDto;
 import study.englishApp.models.dto.UserCardUpdatingDto;
 import study.englishApp.models.mapper.CardMapper;
+import study.englishApp.models.mapper.UserCardMapper;
+import study.englishApp.models.mapper.context.UserCardMappingContext;
 import study.englishApp.repository.UserCardRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class UserCardServiceImpl implements UserCardService {
 
     private  final UserCardRepository userCardRepository;
     private final CardService cardService;
+    private final UserCardMappingContext context;
 
-    public UserCardServiceImpl(UserCardRepository userCardRepository, CardService cardService) {
-        this.userCardRepository = userCardRepository;
-        this.cardService = cardService;
+    @Override
+    public UserCardDto create(UserCardCreatedDto userCard) {
+
+        UserCard created = userCardRepository.save(UserCardMapper.INSTANCE.toEntity(userCard, context));
+        return UserCardMapper.INSTANCE.toDto(created);
     }
 
     @Override
-    public UserCard create(UserCardCreatedDto userCard) {
-        UserCard created = new UserCard();
-        created.setName(userCard.getName());
-        created.setUser(userCard.getUser());
-        created.setCard(userCard.getCard());
-
-        return userCardRepository.save(created);
+    public List<UserCardDto> findAll() {
+        return userCardRepository.findAll()
+                .stream()
+                .map(UserCardMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<UserCard> findAll() {
-        return userCardRepository.findAll();
+    public UserCardDto read(Long id) {
+        return UserCardMapper.INSTANCE.toDto(userCardRepository.findById(id).orElseThrow(() -> new NotFoundExceptions(String.format("Список карт по id: %d не найден", id))));
     }
 
     @Override
-    public UserCard read(Long id) {
-        return userCardRepository.findById(id).orElseThrow(() -> new RuntimeException(String.format("Список карт по id: %d не найден", id)));
-    }
+    public UserCardDto update(UserCardUpdatingDto userCard) {
 
-    @Override
-    public UserCard update(UserCardUpdatingDto userCard) {
-        UserCard found = read(userCard.getId());
+
+        UserCard found = UserCardMapper.INSTANCE.toEntity(read(userCard.getId()));
         found.setName(userCard.getName());
 
-        return userCardRepository.save(found);
+        return UserCardMapper.INSTANCE.toDto(found);
     }
 
     @Override
@@ -58,7 +63,7 @@ public class UserCardServiceImpl implements UserCardService {
 
     @Override
     public void addCard(Long id, Long cardsId) {
-        UserCard found = read(id);
+        UserCard found = UserCardMapper.INSTANCE.toEntity(read(id));
         Card card = CardMapper.INSTANCE.toEntity(cardService.read(cardsId));
         found.setCard(card);
         }
