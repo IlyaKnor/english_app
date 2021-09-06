@@ -29,9 +29,7 @@ public class CardController {
     public ResponseEntity<CardDto> read(@PathVariable(name = "id") long id) {
         final CardDto card = cardService.read(id);
 
-        return card != null
-                ? new ResponseEntity<>(card, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(card, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

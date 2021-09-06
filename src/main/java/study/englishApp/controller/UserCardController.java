@@ -32,17 +32,13 @@ public class UserCardController {
     @GetMapping()
     public ResponseEntity<List<UserCardDto>> findAll() {
         List<UserCardDto> userCards = userCardService.findAll();
-        return userCards != null && !userCards.isEmpty()
-                ? new ResponseEntity<>(userCards, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(userCards, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserCardDto> read(@PathVariable(name = "id") long id) {
         UserCardDto userCard = userCardService.read(id);
-        return userCard != null
-                ? new ResponseEntity<>(userCard, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(userCard, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")

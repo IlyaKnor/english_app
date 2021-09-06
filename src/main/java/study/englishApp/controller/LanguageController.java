@@ -28,18 +28,14 @@ public class LanguageController {
     @GetMapping
     public ResponseEntity<List<LanguageDto>> readAll(){
         final List<LanguageDto> languages = languageService.findAll();
-        return languages != null && !languages.isEmpty()
-                ? new ResponseEntity<>(languages, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(languages, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<LanguageDto> read(@PathVariable(name = "id") Long id){
     final LanguageDto language = languageService.read(id);
 
-    return language != null
-            ? new ResponseEntity<>(language, HttpStatus.OK)
-            : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(language, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")

@@ -32,9 +32,7 @@ public class WordController {
     public ResponseEntity<WordDto> read(@PathVariable(name = "id") long id) {
         WordDto word = wordService.read(id);
 
-        return word != null
-                ? new ResponseEntity<>(word, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(word, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{language}")
