@@ -8,4 +8,6 @@ import study.englishApp.models.Language;
 public interface LanguageRepository extends JpaRepository<Language, Long> {
 
     boolean existsByLanguage(String language);
+
+
 }

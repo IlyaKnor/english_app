@@ -52,6 +52,4 @@ public class WordController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }

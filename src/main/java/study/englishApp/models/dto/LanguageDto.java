@@ -1,7 +1,6 @@
 package study.englishApp.models.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -13,4 +12,8 @@ public class LanguageDto {
     private Long id;
     @NotBlank
     private String language;
+
+    public LanguageDto(String language) {
+        this.language = language;
+    }
 }

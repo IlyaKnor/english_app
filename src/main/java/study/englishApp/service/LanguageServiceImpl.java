@@ -2,7 +2,7 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.englishApp.Exceptions.BadRequestException;
+import study.englishApp.Exceptions.ConflictException;
 import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Language;
 import study.englishApp.models.dto.LanguageDto;
@@ -25,7 +25,7 @@ public class LanguageServiceImpl implements LanguageService {
             languageRepository.save(LanguageMapper.INSTANCE.toEntity(dto));
             return dto;
         } else {
-            throw new BadRequestException("Не верно введен код языка.");
+            throw new ConflictException("Язык уже существует");
         }
     }
 
@@ -45,12 +45,14 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public LanguageDto update(LanguageDto dto) {
-        if (languageRepository.existsById(dto.getId())){
-            dto.setId(dto.getId());
-            languageRepository.save(LanguageMapper.INSTANCE.toEntity(dto));
-            return dto;
-        }else {
-            throw new BadRequestException(String.format("Языка %s не существует", dto.getLanguage()));
+        Language language = languageRepository.findById(dto.getId())
+                .orElseThrow(() -> new NotFoundExceptions(String.format("Языка %s не существует", dto.getLanguage())));
+
+        if (languageRepository.existsByLanguage(dto.getLanguage())) {
+            throw new ConflictException("Язык уже существует");
+        } else {
+            language.setLanguage(dto.getLanguage());
+            return LanguageMapper.INSTANCE.toDto(languageRepository.save(language));
         }
     }
 
