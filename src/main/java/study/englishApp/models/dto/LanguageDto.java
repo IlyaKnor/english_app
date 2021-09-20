@@ -6,14 +6,13 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class LanguageDto {
 
-    @NotBlank
     private Long id;
     @NotBlank
     private String language;
 
-    public LanguageDto(String language) {
-        this.language = language;
-    }
 }
