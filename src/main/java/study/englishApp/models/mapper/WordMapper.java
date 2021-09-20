@@ -27,5 +27,4 @@ public interface WordMapper {
     Word toEntity(WordDto dto);
 
     Word toEntity(WordUpdatingDto dto, @Context WordMappingContext context);
-
 }

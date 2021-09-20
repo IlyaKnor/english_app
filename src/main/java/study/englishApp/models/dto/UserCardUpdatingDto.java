@@ -13,5 +13,4 @@ public class UserCardUpdatingDto {
     @NotBlank
     private Long id;
     private String name;
-    //private Card card;
 }

@@ -3,6 +3,7 @@ package study.englishApp.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.englishApp.Exceptions.BadRequestException;
+import study.englishApp.Exceptions.ConflictException;
 import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Word;
 import study.englishApp.models.dto.WordCreationDto;
@@ -11,6 +12,7 @@ import study.englishApp.models.dto.WordUpdatingDto;
 import study.englishApp.models.dto.WordWithoutLanguageDto;
 import study.englishApp.models.mapper.WordMapper;
 import study.englishApp.models.mapper.context.WordMappingContext;
+import study.englishApp.repository.LanguageRepository;
 import study.englishApp.repository.WordRepository;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class WordServiceImpl implements WordService {
 
     private final WordMappingContext wordMappingContext;
     private final WordRepository wordRepository;
+    private final LanguageRepository languageRepository;
 
 
     @Override
@@ -31,7 +34,7 @@ public class WordServiceImpl implements WordService {
             return WordMapper.INSTANCE.toDto(created);
         }
         else {
-            throw new BadRequestException("Слово на таком языке уже существует.");
+            throw new ConflictException("Слово на таком языке уже существует.");
         }
     }
 
@@ -43,15 +46,18 @@ public class WordServiceImpl implements WordService {
 
 
     @Override
-    public WordDto update(WordUpdatingDto word) {
+    public WordDto update(WordUpdatingDto dto) {
+       Word word = wordRepository.findById(dto.getId())
+               .orElseThrow(()-> new ConflictException("Слово не найдено по id: " + dto.getId()));
 
-        if (wordRepository.existsWordById(word.getId())){
-            Word found = wordRepository.save(WordMapper.INSTANCE.toEntity(read(word.getId())));
-            return WordMapper.INSTANCE.toDto(found);
-        }
-        else {
-            throw new BadRequestException("Слово не обновлено, проверьте вводимые значения");
-        }
+       if (wordRepository.existsByWordAndLang_Id(dto.getWord(),dto.getLangId())) {
+           throw new ConflictException("Слово уже существует");
+       }
+
+       word.setWord(dto.getWord());
+       word.setLang(languageRepository.findById(dto.getLangId())
+               .orElseThrow(() -> new ConflictException("Не найден язык по id: " + dto.getLangId())));
+       return WordMapper.INSTANCE.toDto(wordRepository.save(word));
     }
 
     @Override

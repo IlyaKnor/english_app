@@ -2,6 +2,7 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import study.englishApp.Exceptions.ConflictException;
 import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Card;
 import study.englishApp.models.UserCard;
@@ -41,14 +42,16 @@ public class UserCardServiceImpl implements UserCardService {
 
     @Override
     public UserCardDto read(Long id) {
-        return UserCardMapper.INSTANCE.toDto(userCardRepository.findById(id).orElseThrow(() -> new NotFoundExceptions(String.format("Список карт по id: %d не найден", id))));
+        return UserCardMapper.INSTANCE.toDto(userCardRepository.findById(id)
+                .orElseThrow(() -> new NotFoundExceptions(String.format("Список карт по id: %d не найден", id))));
     }
 
     @Override
     public UserCardDto update(UserCardUpdatingDto userCard) {
 
 
-        UserCard found = UserCardMapper.INSTANCE.toEntity(read(userCard.getId()));
+        UserCard found = userCardRepository.findById(userCard.getId())
+                .orElseThrow(() -> new ConflictException(String.format("Карточки по id: %d е существует", userCard.getId())));
         found.setName(userCard.getName());
 
         return UserCardMapper.INSTANCE.toDto(found);
