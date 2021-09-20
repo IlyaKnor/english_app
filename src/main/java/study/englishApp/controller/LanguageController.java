@@ -21,8 +21,8 @@ public class LanguageController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody LanguageDto language) {
-        languageService.create(language);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(languageService.create(language));
     }
 
     @GetMapping
@@ -33,16 +33,16 @@ public class LanguageController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<LanguageDto> read(@PathVariable(name = "id") Long id){
-    final LanguageDto language = languageService.read(id);
 
-    return new ResponseEntity<>(language, HttpStatus.OK);
+    return ResponseEntity.status(HttpStatus.OK)
+            .body(languageService.read(id));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody LanguageDto language) {
-       languageService.update(language);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(languageService.update(language));
     }
 
     @DeleteMapping(value = "/{id}")
