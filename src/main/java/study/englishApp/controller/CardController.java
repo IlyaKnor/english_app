@@ -20,22 +20,21 @@ public class CardController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody CardCreationDto card) {
+    public ResponseEntity<CardDto> create(@RequestBody CardCreationDto card) {
         cardService.create(card);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(cardService.create(card));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<CardDto> read(@PathVariable(name = "id") long id) {
-        final CardDto card = cardService.read(id);
-
-        return new ResponseEntity<>(card, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(cardService.read(id));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") long id) {
         cardService.delete(id);
-
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 

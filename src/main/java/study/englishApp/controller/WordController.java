@@ -22,7 +22,7 @@ public class WordController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody WordCreationDto word) {
+    public ResponseEntity<WordDto> create(@RequestBody WordCreationDto word) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(wordService.create(word));
     }
@@ -30,9 +30,8 @@ public class WordController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<WordDto> read(@PathVariable(name = "id") long id) {
-        WordDto word = wordService.read(id);
-
-        return new ResponseEntity<>(word, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(wordService.read(id));
     }
 
     @GetMapping(value = "/{language}")
@@ -41,15 +40,14 @@ public class WordController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody WordUpdatingDto word) {
-        wordService.update(word);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<WordDto> update(@RequestBody WordUpdatingDto word) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(wordService.update(word));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") long id) {
         wordService.delete(id);
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

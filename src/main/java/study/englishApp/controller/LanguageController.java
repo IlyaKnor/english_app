@@ -20,35 +20,33 @@ public class LanguageController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody LanguageDto language) {
+    public ResponseEntity<LanguageDto> create(@RequestBody LanguageDto language) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(languageService.create(language));
     }
 
     @GetMapping
-    public ResponseEntity<List<LanguageDto>> readAll(){
+    public ResponseEntity<List<LanguageDto>> readAll() {
         final List<LanguageDto> languages = languageService.findAll();
         return new ResponseEntity<>(languages, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<LanguageDto> read(@PathVariable(name = "id") Long id){
+    public ResponseEntity<LanguageDto> read(@PathVariable(name = "id") Long id) {
 
-    return ResponseEntity.status(HttpStatus.OK)
-            .body(languageService.read(id));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(languageService.read(id));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody LanguageDto language) {
-
+    public ResponseEntity<LanguageDto> update(@PathVariable(name = "id") Long id, @RequestBody LanguageDto language) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(languageService.update(language));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> delete (@PathVariable(name = "id") Long id){
+    public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) {
         languageService.delete(id);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

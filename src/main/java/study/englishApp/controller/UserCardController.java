@@ -24,9 +24,9 @@ public class UserCardController {
 
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody UserCardCreatedDto userCard) {
-       userCardService.create(userCard);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<UserCardDto> create(@RequestBody UserCardCreatedDto userCard) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userCardService.create(userCard));
     }
 
     @GetMapping()
@@ -37,28 +37,25 @@ public class UserCardController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserCardDto> read(@PathVariable(name = "id") long id) {
-        UserCardDto userCard = userCardService.read(id);
-        return new ResponseEntity<>(userCard, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userCardService.read(id));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody UserCardUpdatingDto userCard) {
-        userCardService.update(userCard);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<UserCardDto> update(@PathVariable(name = "id") long id, @RequestBody UserCardUpdatingDto userCard) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userCardService.update(userCard));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") long id) {
-         userCardService.delete(id);
-
-         return new ResponseEntity<>(HttpStatus.OK);
+        userCardService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}/{card_id}")
-    public ResponseEntity<?> addCard(@PathVariable(name = "id") long id, @PathVariable(name = "card_id") long cardId){
+    public ResponseEntity<UserCardDto> addCard(@PathVariable(name = "id") long id, @PathVariable(name = "card_id") long cardId) {
         userCardService.addCard(id, cardId);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
