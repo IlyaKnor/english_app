@@ -3,6 +3,7 @@ package study.englishApp.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.englishApp.Exceptions.BadRequestException;
+import study.englishApp.Exceptions.ConflictException;
 import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Card;
 import study.englishApp.models.dto.CardCreationDto;
@@ -21,9 +22,8 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public CardDto create(CardCreationDto card) {
-
         if (card.getTranslationId().equals(card.getWordId())){
-            throw new BadRequestException("Выберите корректный перевод слова.");
+            throw new ConflictException("Исходное слово и перевод совпадают.");
         }
 
         Card entity = cardRepository.save(CardMapper.INSTANCE.toEntity(card, context));
@@ -39,7 +39,6 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void delete(Long id) {
-
         if (cardRepository.existsById(id)) {
             cardRepository.deleteById(id);
         }

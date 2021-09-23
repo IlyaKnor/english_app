@@ -25,13 +25,13 @@ public class LanguageServiceImpl implements LanguageService {
             languageRepository.save(LanguageMapper.INSTANCE.toEntity(dto));
             return dto;
         } else {
-            throw new ConflictException("Язык уже существует");
+            throw new ConflictException("Язык уже существует или задано неверное значение.");
         }
     }
 
     @Override
     public List<LanguageDto> findAll() {
-         return languageRepository.findAll()
+        return languageRepository.findAll()
                 .stream()
                 .map(LanguageMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
@@ -47,13 +47,8 @@ public class LanguageServiceImpl implements LanguageService {
     public LanguageDto update(LanguageDto dto) {
         Language language = languageRepository.findById(dto.getId())
                 .orElseThrow(() -> new NotFoundExceptions(String.format("Языка %s не существует", dto.getLanguage())));
-
-        if (languageRepository.existsByLanguage(dto.getLanguage())) {
-            throw new ConflictException("Язык уже существует");
-        } else {
-            language.setLanguage(dto.getLanguage());
-            return LanguageMapper.INSTANCE.toDto(languageRepository.save(language));
-        }
+        language.setLanguage(dto.getLanguage());
+        return LanguageMapper.INSTANCE.toDto(languageRepository.save(language));
     }
 
     @Override

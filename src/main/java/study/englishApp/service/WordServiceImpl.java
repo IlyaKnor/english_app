@@ -2,7 +2,6 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.englishApp.Exceptions.BadRequestException;
 import study.englishApp.Exceptions.ConflictException;
 import study.englishApp.Exceptions.NotFoundExceptions;
 import study.englishApp.models.Word;
@@ -44,11 +43,10 @@ public class WordServiceImpl implements WordService {
                 .orElseThrow(() -> new NotFoundExceptions("Слово не найдено по id: " + id)));
     }
 
-
     @Override
     public WordDto update(WordUpdatingDto dto) {
        Word word = wordRepository.findById(dto.getId())
-               .orElseThrow(()-> new ConflictException("Слово не найдено по id: " + dto.getId()));
+               .orElseThrow(()-> new NotFoundExceptions("Слово не найдено по id: " + dto.getId()));
 
        if (wordRepository.existsByWordAndLang_Id(dto.getWord(),dto.getLangId())) {
            throw new ConflictException("Слово уже существует");
@@ -56,7 +54,7 @@ public class WordServiceImpl implements WordService {
 
        word.setWord(dto.getWord());
        word.setLang(languageRepository.findById(dto.getLangId())
-               .orElseThrow(() -> new ConflictException("Не найден язык по id: " + dto.getLangId())));
+               .orElseThrow(() -> new NotFoundExceptions("Не найден язык по id: " + dto.getLangId())));
        return WordMapper.INSTANCE.toDto(wordRepository.save(word));
     }
 
@@ -69,7 +67,6 @@ public class WordServiceImpl implements WordService {
 
     @Override
     public List<WordWithoutLanguageDto> findAllByLang(String language) {
-
         return wordRepository.findWordsByLanguage(language)
                 .stream()
                 .map(WordMapper.INSTANCE::toWithoutLanguageDto)

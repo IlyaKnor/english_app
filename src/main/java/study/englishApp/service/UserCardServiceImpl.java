@@ -21,13 +21,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserCardServiceImpl implements UserCardService {
 
-    private  final UserCardRepository userCardRepository;
+    private final UserCardRepository userCardRepository;
     private final CardService cardService;
     private final UserCardMappingContext context;
 
     @Override
     public UserCardDto create(UserCardCreatedDto userCard) {
-
         UserCard created = userCardRepository.save(UserCardMapper.INSTANCE.toEntity(userCard, context));
         return UserCardMapper.INSTANCE.toDto(created);
     }
@@ -43,23 +42,20 @@ public class UserCardServiceImpl implements UserCardService {
     @Override
     public UserCardDto read(Long id) {
         return UserCardMapper.INSTANCE.toDto(userCardRepository.findById(id)
-                .orElseThrow(() -> new NotFoundExceptions(String.format("Список карт по id: %d не найден", id))));
+                .orElseThrow(() -> new NotFoundExceptions(String.format("Карточка по id: %d не найдена", id))));
     }
 
     @Override
     public UserCardDto update(UserCardUpdatingDto userCard) {
-
-
         UserCard found = userCardRepository.findById(userCard.getId())
-                .orElseThrow(() -> new ConflictException(String.format("Карточки по id: %d е существует", userCard.getId())));
+                .orElseThrow(() -> new NotFoundExceptions(String.format("Карточки по id: %d не существует", userCard.getId())));
         found.setName(userCard.getName());
-
         return UserCardMapper.INSTANCE.toDto(found);
     }
 
     @Override
     public void delete(Long id) {
-        if (userCardRepository.existsById(id)){
+        if (userCardRepository.existsById(id)) {
             userCardRepository.deleteById(id);
         }
     }
@@ -69,6 +65,6 @@ public class UserCardServiceImpl implements UserCardService {
         UserCard found = UserCardMapper.INSTANCE.toEntity(read(id));
         Card card = CardMapper.INSTANCE.toEntity(cardService.read(cardsId));
         found.setCard(card);
-        }
+    }
 
 }

@@ -8,9 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -41,7 +39,7 @@ public class LanguageControllerTest {
     }
 
     @Test
-    public void shouldReturnNewLanguage() throws Exception {
+    public void shouldReturn201OnCreate() throws Exception {
         LanguageDto dto = LanguageDto.builder()
                 .language("EN")
                 .build();
@@ -51,7 +49,7 @@ public class LanguageControllerTest {
                 .language("EN")
                 .build();
 
-            when(languageService.create(any())).thenReturn(created);
+        when(languageService.create(any())).thenReturn(created);
 
         ObjectMapper objectMapper = new ObjectMapper();
 

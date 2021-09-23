@@ -1,10 +1,8 @@
 package study.englishApp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import study.englishApp.models.UserCard;
 import study.englishApp.models.dto.UserCardCreatedDto;
 import study.englishApp.models.dto.UserCardDto;
 import study.englishApp.models.dto.UserCardUpdatingDto;
@@ -31,8 +29,8 @@ public class UserCardController {
 
     @GetMapping()
     public ResponseEntity<List<UserCardDto>> findAll() {
-        List<UserCardDto> userCards = userCardService.findAll();
-        return new ResponseEntity<>(userCards, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userCardService.findAll());
     }
 
     @GetMapping(value = "/{id}")
