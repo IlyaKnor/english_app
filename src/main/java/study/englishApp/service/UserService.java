@@ -1,6 +1,6 @@
 //package study.englishApp.service;
 //
-//import study.englishApp.models.User;
+//import study.englishApp.models.entity.User;
 //
 //public interface UserService {
 //    User create(UserCreateDto userCreateDto);

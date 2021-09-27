@@ -1,15 +1,14 @@
-package study.englishApp.models;
+package study.englishApp.models.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user_card")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCard {

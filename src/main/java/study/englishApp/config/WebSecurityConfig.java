@@ -1,4 +1,4 @@
-package study.englishApp.security;
+package study.englishApp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,14 +12,26 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import study.englishApp.security.jwt.AuthEntryPointJwt;
-import study.englishApp.security.jwt.AuthTokenFilter;
-import study.englishApp.security.service.UserDetailsServiceImpl;
+import study.englishApp.config.filter.AuthTokenFilter;
+import study.englishApp.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String[] WHITE_LIST = {
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/auth/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"
+    };
+
     private final UserDetailsServiceImpl userDetailsService;
 
     private final AuthEntryPointJwt unauthorizedHandler;
@@ -55,10 +67,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers(WHITE_LIST).permitAll()
                 .antMatchers("/languages/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated();
-
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

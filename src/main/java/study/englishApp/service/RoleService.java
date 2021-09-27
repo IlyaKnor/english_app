@@ -1,6 +1,6 @@
 package study.englishApp.service;
 
-import study.englishApp.models.Role;
+import study.englishApp.models.entity.Role;
 
 import java.util.List;
 

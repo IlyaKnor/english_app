@@ -1,4 +1,4 @@
-package study.englishApp.Exceptions;
+package study.englishApp.exceptions;
 
 public class NotFoundExceptions extends RuntimeException {
     public NotFoundExceptions(String message) {

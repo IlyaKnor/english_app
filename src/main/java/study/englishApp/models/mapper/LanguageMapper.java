@@ -2,7 +2,7 @@ package study.englishApp.models.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import study.englishApp.models.Language;
+import study.englishApp.models.entity.Language;
 import study.englishApp.models.dto.LanguageDto;
 
 @Mapper

@@ -2,9 +2,9 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.englishApp.Exceptions.ConflictException;
-import study.englishApp.Exceptions.NotFoundExceptions;
-import study.englishApp.models.Word;
+import study.englishApp.exceptions.ConflictException;
+import study.englishApp.exceptions.NotFoundExceptions;
+import study.englishApp.models.entity.Word;
 import study.englishApp.models.dto.WordCreationDto;
 import study.englishApp.models.dto.WordDto;
 import study.englishApp.models.dto.WordUpdatingDto;

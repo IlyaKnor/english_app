@@ -1,10 +1,11 @@
-package study.englishApp.security.service;
+package study.englishApp.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import study.englishApp.models.User;
+import study.englishApp.models.UserDetailsImpl;
+import study.englishApp.models.entity.User;
 import study.englishApp.repository.UserRepository;
 
 @Service

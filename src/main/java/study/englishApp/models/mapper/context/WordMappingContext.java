@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
-import study.englishApp.models.Word;
+import study.englishApp.models.entity.Word;
 import study.englishApp.models.dto.WordCreationDto;
 import study.englishApp.models.dto.WordUpdatingDto;
 import study.englishApp.models.mapper.LanguageMapper;

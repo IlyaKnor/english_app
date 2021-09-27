@@ -1,4 +1,4 @@
-package study.englishApp.models;
+package study.englishApp.models.enums;
 
 public enum ERole {
     ROLE_USER,

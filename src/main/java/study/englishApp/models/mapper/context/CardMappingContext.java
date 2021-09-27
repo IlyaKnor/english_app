@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
-import study.englishApp.models.Card;
+import study.englishApp.models.entity.Card;
 import study.englishApp.models.dto.CardCreationDto;
 import study.englishApp.models.mapper.WordMapper;
 import study.englishApp.service.WordService;

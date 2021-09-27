@@ -1,8 +1,8 @@
 //package study.englishApp.service;
 //
 //import org.springframework.stereotype.Service;
-//import study.englishApp.models.ERole;
-//import study.englishApp.models.User;
+//import study.englishApp.models.enums.ERole;
+//import study.englishApp.models.entity.User;
 //import study.englishApp.repository.RoleRepository;
 //import study.englishApp.repository.UserRepository;
 //

@@ -1,15 +1,14 @@
-package study.englishApp.models;
+package study.englishApp.models.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import study.englishApp.models.enums.ERole;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "roles")

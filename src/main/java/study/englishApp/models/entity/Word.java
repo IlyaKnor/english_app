@@ -1,4 +1,4 @@
-package study.englishApp.models;
+package study.englishApp.models.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,19 +12,24 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table (name = "card")
-public class Card {
+@Table(name = "word")
+public class Word {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "word_id", referencedColumnName = "id")
-    @ManyToOne(optional = false,cascade = CascadeType.ALL)
-    private Word word;
+    @Column(name = "word")
+    private String word;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "translation_id", referencedColumnName = "id")
-    private Word translation;
+    @JoinColumn(name = "lang_id", referencedColumnName = "id")
+    private Language lang;
+
+    public Word(String word, Language lang) {
+        this.word = word;
+        this.lang = lang;
+    }
+
 }

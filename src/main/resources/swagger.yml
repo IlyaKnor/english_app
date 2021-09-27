@@ -1,0 +1,12 @@
+openapi: 3.0.3
+info:
+  title: Word service
+  description: Word Learning Service
+  version: "0.1"
+paths:
+  /word:
+    post:
+      summary: Add a new word.
+      responses:
+        '201':
+          description: Created

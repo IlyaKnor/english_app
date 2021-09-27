@@ -1,10 +1,10 @@
-package study.englishApp.Exceptions;
+package study.englishApp.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import study.englishApp.models.Response;
+import study.englishApp.models.entity.Response;
 
 @ControllerAdvice
 public class RestExceptionHandler {

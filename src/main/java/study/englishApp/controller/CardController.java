@@ -3,7 +3,6 @@ package study.englishApp.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import study.englishApp.models.Card;
 import study.englishApp.models.dto.CardCreationDto;
 import study.englishApp.models.dto.CardDto;
 import study.englishApp.service.CardService;

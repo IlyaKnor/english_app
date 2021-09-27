@@ -2,8 +2,8 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.englishApp.Exceptions.NotFoundExceptions;
-import study.englishApp.models.Role;
+import study.englishApp.exceptions.NotFoundExceptions;
+import study.englishApp.models.entity.Role;
 import study.englishApp.repository.RoleRepository;
 
 import java.util.List;

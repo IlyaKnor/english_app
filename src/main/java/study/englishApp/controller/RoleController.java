@@ -3,7 +3,7 @@ package study.englishApp.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import study.englishApp.models.Role;
+import study.englishApp.models.entity.Role;
 import study.englishApp.service.RoleService;
 
 import java.util.List;

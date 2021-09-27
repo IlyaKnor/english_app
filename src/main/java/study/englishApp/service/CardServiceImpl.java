@@ -2,10 +2,9 @@ package study.englishApp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.englishApp.Exceptions.BadRequestException;
-import study.englishApp.Exceptions.ConflictException;
-import study.englishApp.Exceptions.NotFoundExceptions;
-import study.englishApp.models.Card;
+import study.englishApp.exceptions.ConflictException;
+import study.englishApp.exceptions.NotFoundExceptions;
+import study.englishApp.models.entity.Card;
 import study.englishApp.models.dto.CardCreationDto;
 import study.englishApp.models.dto.CardDto;
 import study.englishApp.models.mapper.CardMapper;

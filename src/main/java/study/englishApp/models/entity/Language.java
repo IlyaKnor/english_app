@@ -1,12 +1,11 @@
-package study.englishApp.models;
+package study.englishApp.models.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

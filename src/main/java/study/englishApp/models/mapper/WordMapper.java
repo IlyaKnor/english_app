@@ -8,7 +8,7 @@ import study.englishApp.models.dto.WordDto;
 import study.englishApp.models.dto.WordUpdatingDto;
 import study.englishApp.models.dto.WordWithoutLanguageDto;
 import study.englishApp.models.mapper.context.WordMappingContext;
-import study.englishApp.models.Word;
+import study.englishApp.models.entity.Word;
 import study.englishApp.models.dto.WordCreationDto;
 
 

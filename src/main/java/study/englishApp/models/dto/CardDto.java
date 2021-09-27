@@ -1,8 +1,10 @@
 package study.englishApp.models.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import study.englishApp.models.Word;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import study.englishApp.models.entity.Word;
 
 import javax.validation.constraints.NotBlank;
 

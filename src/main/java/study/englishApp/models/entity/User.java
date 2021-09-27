@@ -1,4 +1,4 @@
-package study.englishApp.models;
+package study.englishApp.models.entity;
 
 import lombok.*;
 
@@ -9,8 +9,6 @@ import java.util.*;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-@Getter
-@Setter
 public class User {
 
     @Id

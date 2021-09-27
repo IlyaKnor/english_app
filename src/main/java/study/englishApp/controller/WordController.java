@@ -34,7 +34,7 @@ public class WordController {
                 .body(wordService.read(id));
     }
 
-    @GetMapping(value = "/{language}")
+    @GetMapping(value = "/{language}/language")
     public ResponseEntity<List<WordWithoutLanguageDto>> findAllByLanguage(@PathVariable(name = "language") String language) {
         return ResponseEntity.ok(wordService.findAllByLang(language));
     }
