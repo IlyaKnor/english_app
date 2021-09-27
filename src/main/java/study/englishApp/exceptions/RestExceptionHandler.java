@@ -22,7 +22,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(ConflictException.class)
-    public ResponseEntity<Response> handleBadRequest(ConflictException exception) {
+    public ResponseEntity<Response> handleConflict(ConflictException exception) {
         Response response = new Response(exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }

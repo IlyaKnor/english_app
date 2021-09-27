@@ -8,8 +8,10 @@ import study.englishApp.models.entity.Language;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class WordDto {
     @NotBlank
     private Long id;

@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 import study.englishApp.models.entity.Card;
 import study.englishApp.models.entity.User;
 
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Builder
 public class UserCardDto {
 
     private Long id;

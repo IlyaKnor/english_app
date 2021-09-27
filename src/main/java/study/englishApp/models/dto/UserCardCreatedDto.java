@@ -9,8 +9,8 @@ import study.englishApp.models.entity.User;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserCardCreatedDto {

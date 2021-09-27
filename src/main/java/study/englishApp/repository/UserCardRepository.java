@@ -6,5 +6,7 @@ import study.englishApp.models.entity.UserCard;
 
 @Repository
 public interface UserCardRepository extends JpaRepository<UserCard, Long> {
+
     UserCard findUserCardByName(String name);
+
 }

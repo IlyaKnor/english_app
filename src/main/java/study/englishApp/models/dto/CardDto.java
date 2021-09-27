@@ -8,8 +8,10 @@ import study.englishApp.models.entity.Word;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CardDto {
 
     @NotBlank

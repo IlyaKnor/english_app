@@ -9,5 +9,4 @@ public interface LanguageRepository extends JpaRepository<Language, Long> {
 
     boolean existsByLanguage(String language);
 
-
 }
